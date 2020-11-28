@@ -9,7 +9,7 @@ const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
 module.exports.create = (event, context, callback) => {
     const timestamp = new Date().getTime();
-    console.log('MIRA AQUI' + event);
+    console.log('MIRA AQUI' + event.headers);
     console.log('Function name: ', context.awsRequestId);
     const contextid = context.awsRequestId;
     //console.log('CONTEXT ' + AWS.context.awsRequestId);
@@ -17,7 +17,7 @@ module.exports.create = (event, context, callback) => {
     const data = event;
     console.error('MIRA AQUI 1.5' + data);
     console.error('MIRA AQUI 2' + event);
-    if (typeof data.text !== 'string') {
+    if (typeof data.poliza !== 'string') {
         console.error('Validation Failed');
         console.error('MIRA AQUI 3' + event);
         callback(null, {
@@ -32,7 +32,11 @@ module.exports.create = (event, context, callback) => {
         TableName: process.env.DYNAMODB_TABLE,
         Item: {
             id: contextid,
-            text: data.text,
+            poliza: data.poliza,
+            tipopoliza: data.tipopoliza,
+            sumaasegurada: data.sumaasegurada,
+            prima: data.prima,
+            coberturas: data.cobertura,
             checked: false,
             createdAt: timestamp,
             updatedAt: timestamp,

@@ -1,4 +1,4 @@
-service: aws-node-rest-api-with-dynamodb-service
+service: aws-node-rest-api-with-dynamodb-indra
 
 frameworkVersion: "2"
 

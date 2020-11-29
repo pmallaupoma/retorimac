@@ -10,6 +10,10 @@ language: nodeJS
 ## Serverless REST API
 
 Se configuró un Api Gateway  + Lambda + DynamoDB o SWAPI
+Carpeta rimac: API para DynamoDb
+Carpeta swapi: API para SWAPI
+
+Ruta SWAPI: https://swapi.py4e.com/ 
 
 Son configurados en el archivo `serverless.yml`.
 
@@ -17,7 +21,12 @@ Son configurados en el archivo `serverless.yml`.
 
 Para instalar en serverless correr:
 
-npm install
+Step #1 
+npm install serverless -g
+Step #2 
+serverless install -u https://github.com/pmallaupoma/retorimac.git -n aws-node-rimac-reto
+
+
 
 
 ## Deploy

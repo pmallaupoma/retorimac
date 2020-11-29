@@ -44,7 +44,7 @@ endpoints:
   POST - https://bn71qzqogk.execute-api.us-east-1.amazonaws.com/dev/rimac
   GET - https://bn71qzqogk.execute-api.us-east-1.amazonaws.com/dev/rimac/{id}
   GET - https://bn71qzqogk.execute-api.us-east-1.amazonaws.com/dev/swapi/people
-  GET - https://bn71qzqogk.execute-api.us-east-1.amazonaws.com/dev/swapi/planets
+  GET - https://bn71qzqogk.execute-api.us-east-1.amazonaws.com/dev/swapi/planets 
 
 functions:
 

@@ -1,7 +1,7 @@
 {
     "name": "aws-node-rest-api-with-dynamodb",
     "version": "1.0.0",
-    "description": "Reto Rimac Get y Post",
+    "description": "Reto Rimac Get y Post DynamoDB + API SWAPI",
     "author": "",
     "license": "MIT",
     "dependencies": {

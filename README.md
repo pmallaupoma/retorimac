@@ -40,12 +40,14 @@ serverless deploy
 El resultado esperado es similar a:
 
 endpoints:
-  POST - https://bn71qzqogk.execute-api.us-east-1.amazonaws.com/dev/rimac 
+
+  POST - https://bn71qzqogk.execute-api.us-east-1.amazonaws.com/dev/rimac
   GET - https://bn71qzqogk.execute-api.us-east-1.amazonaws.com/dev/rimac/{id}
   GET - https://bn71qzqogk.execute-api.us-east-1.amazonaws.com/dev/swapi/people
   GET - https://bn71qzqogk.execute-api.us-east-1.amazonaws.com/dev/swapi/planets
 
 functions:
+
   create: aws-node-rest-api-with-dynamodb-rimac-3-dev-create
   get: aws-node-rest-api-with-dynamodb-rimac-3-dev-get
   listpeople: aws-node-rest-api-with-dynamodb-rimac-3-dev-listpeople

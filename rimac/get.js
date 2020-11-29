@@ -1,11 +1,15 @@
+//==============================
+//Obtener Polizas de DynamoDb
+//==============================
+
 'use strict';
 
-const AWS = require('aws-sdk'); // eslint-disable-line import/no-extraneous-dependencies
+const AWS = require('aws-sdk'); // obtener acceso a AWS SDK
 
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
 module.exports.get = (event, context, callback) => {
-    console.log("ruta de param " + event.pathParameters);
+
     const params = {
         TableName: process.env.DYNAMODB_TABLE,
         Key: {
@@ -13,15 +17,15 @@ module.exports.get = (event, context, callback) => {
         },
     };
 
-    // fetch rimac from the database
+    // obtener el listado de datos del dynamoDb
     dynamoDb.get(params, (error, result) => {
-        // handle potential errors
+        // manejar potenciales errores
         if (error) {
             console.error(error);
             callback(null, {
                 statusCode: error.statusCode || 501,
                 headers: { 'Content-Type': 'text/plain' },
-                body: 'Couldn\'t fetch the rimac item.',
+                body: 'No se pudo traer los datos, revisar errores con la base de datos',
             });
             return;
         }

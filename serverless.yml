@@ -37,8 +37,21 @@ functions:
           method: get
           cors: true
 
-  
+  listpeople:
+    handler: swapi/people/listpeople.get
+    events:
+      - http:
+          path: swapi/people/
+          method: get
+          cors: true
 
+  listplanets:
+    handler: swapi/planets/listplanets.get
+    events:
+      - http:
+          path: swapi/planets/
+          method: get
+          cors: true        
  
 
 resources:

@@ -1,148 +1,94 @@
 <!--
-title: 'AWS Serverless REST API example in NodeJS'
-description: 'This example demonstrates how to setup a RESTful Web Service allowing you to create, list, get, update and delete Todos. DynamoDB is used to store the data.'
+title: 'API en Node.js con el framework Serverless'
+description: 'TAPI en Node.js con el framework Serverless para un despliegue en AWS.'
 layout: Doc
 framework: v1
 platform: AWS
 language: nodeJS
-authorLink: 'https://github.com/ozbillwang'
-authorName: 'Bill Wang'
-authorAvatar: 'https://avatars3.githubusercontent.com/u/8954908?v=4&s=140'
+
 -->
-# Serverless REST API
+## Serverless REST API
 
-This example demonstrates how to setup a [RESTful Web Services](https://en.wikipedia.org/wiki/Representational_state_transfer#Applied_to_web_services) allowing you to create, list, get, update and delete Todos. DynamoDB is used to store the data. This is just an example and of course you could use any data storage as a backend.
+Se configuró un Api Gateway  + Lambda + DynamoDB o SWAPI
 
-## Structure
-
-This service has a separate directory for all the todo operations. For each operation exactly one file exists e.g. `todos/delete.js`. In each of these files there is exactly one function which is directly attached to `module.exports`.
-
-The idea behind the `todos` directory is that in case you want to create a service containing multiple resources e.g. users, notes, comments you could do so in the same service. While this is certainly possible you might consider creating a separate service for each resource. It depends on the use-case and your preference.
-
-## Use-cases
-
-- API for a Web Application
-- API for a Mobile Application
+Son configurados en el archivo `serverless.yml`.
 
 ## Setup
 
-```bash
+Para instalar en serverless correr:
+
 npm install
-```
+
 
 ## Deploy
 
-In order to deploy the endpoint simply run
+Para desplegar el endpoint correr:
 
-```bash
 serverless deploy
-```
 
-The expected result should be similar to:
+## Resultado
 
-```bash
-Serverless: Packaging service…
-Serverless: Uploading CloudFormation file to S3…
-Serverless: Uploading service .zip file to S3…
-Serverless: Updating Stack…
-Serverless: Checking Stack update progress…
-Serverless: Stack update finished…
+El resultado esperado es similar a:
 
-Service Information
-service: serverless-rest-api-with-dynamodb
-stage: dev
-region: us-east-1
-api keys:
-  None
 endpoints:
-  POST - https://45wf34z5yf.execute-api.us-east-1.amazonaws.com/dev/todos
-  GET - https://45wf34z5yf.execute-api.us-east-1.amazonaws.com/dev/todos
-  GET - https://45wf34z5yf.execute-api.us-east-1.amazonaws.com/dev/todos/{id}
-  PUT - https://45wf34z5yf.execute-api.us-east-1.amazonaws.com/dev/todos/{id}
-  DELETE - https://45wf34z5yf.execute-api.us-east-1.amazonaws.com/dev/todos/{id}
+  POST - https://bn71qzqogk.execute-api.us-east-1.amazonaws.com/dev/rimac 
+  GET - https://bn71qzqogk.execute-api.us-east-1.amazonaws.com/dev/rimac/{id}
+  GET - https://bn71qzqogk.execute-api.us-east-1.amazonaws.com/dev/swapi/people
+  GET - https://bn71qzqogk.execute-api.us-east-1.amazonaws.com/dev/swapi/planets
+
 functions:
-  serverless-rest-api-with-dynamodb-dev-update: arn:aws:lambda:us-east-1:488110005556:function:serverless-rest-api-with-dynamodb-dev-update
-  serverless-rest-api-with-dynamodb-dev-get: arn:aws:lambda:us-east-1:488110005556:function:serverless-rest-api-with-dynamodb-dev-get
-  serverless-rest-api-with-dynamodb-dev-list: arn:aws:lambda:us-east-1:488110005556:function:serverless-rest-api-with-dynamodb-dev-list
-  serverless-rest-api-with-dynamodb-dev-create: arn:aws:lambda:us-east-1:488110005556:function:serverless-rest-api-with-dynamodb-dev-create
-  serverless-rest-api-with-dynamodb-dev-delete: arn:aws:lambda:us-east-1:488110005556:function:serverless-rest-api-with-dynamodb-dev-delete
-```
+  create: aws-node-rest-api-with-dynamodb-rimac-3-dev-create
+  get: aws-node-rest-api-with-dynamodb-rimac-3-dev-get
+  listpeople: aws-node-rest-api-with-dynamodb-rimac-3-dev-listpeople
+  listplanets: aws-node-rest-api-with-dynamodb-rimac-3-dev-listplanets
 
-## Usage
 
-You can create, retrieve, update, or delete todos with the following commands:
+### Uso
 
-### Create a Todo
+Se puede consultar(Get) y crear(Post) items sobre la bd dynamodb.
+Se puede consultar(Get) el APi SWAPI.
 
-```bash
-curl -X POST https://XXXXXXX.execute-api.us-east-1.amazonaws.com/dev/todos --data '{ "text": "Learn Serverless" }'
-```
+### Get Rimac
 
-Example Result:
-```bash
-{"text":"Learn Serverless","id":"ee6490d0-aa11e6-9ede-afdfa051af86","createdAt":1479138570824,"checked":false,"updatedAt":1479138570824}%
-```
+Para obtener datos de la poliza se consulta en la bd DynamoDB por el id de la poliza 
 
-### List all Todos
+Tipo: GET
+https://bn71qzqogk.execute-api.us-east-1.amazonaws.com/dev/rimac/{id}
 
-```bash
-curl https://XXXXXXX.execute-api.us-east-1.amazonaws.com/dev/todos
-```
+donde id: id de cada item poliza, tiene el siguiente aspecto (b2e681cb-9071-4f2c-bcb1-65b1b5279378)
 
-Example output:
-```bash
-[{"text":"Deploy my first service","id":"ac90feaa11e6-9ede-afdfa051af86","checked":true,"updatedAt":1479139961304},{"text":"Learn Serverless","id":"206793aa11e6-9ede-afdfa051af86","createdAt":1479139943241,"checked":false,"updatedAt":1479139943241}]%
-```
+### Post Rimac
 
-### Get one Todo
+Para crear datos de la poliza en la bd DynamoDB.
+Tipo: POST
 
-```bash
-# Replace the <id> part with a real id from your todos table
-curl https://XXXXXXX.execute-api.us-east-1.amazonaws.com/dev/todos/<id>
-```
+https://bn71qzqogk.execute-api.us-east-1.amazonaws.com/dev/rimac
 
-Example Result:
-```bash
-{"text":"Learn Serverless","id":"ee6490d0-aa11e6-9ede-afdfa051af86","createdAt":1479138570824,"checked":false,"updatedAt":1479138570824}%
-```
+Request Ejemplo: 
 
-### Update a Todo
+{
+  poliza: "P45000",
+  tipopoliza: "Vida Vul",
+  sumaasegurada: "28600",
+  prima: "85",
+  coberturas: "Muerte Natural"
+}
 
-```bash
-# Replace the <id> part with a real id from your todos table
-curl -X PUT https://XXXXXXX.execute-api.us-east-1.amazonaws.com/dev/todos/<id> --data '{ "text": "Learn Serverless", "checked": true }'
-```
 
-Example Result:
-```bash
-{"text":"Learn Serverless","id":"ee6490d0-aa11e6-9ede-afdfa051af86","createdAt":1479138570824,"checked":true,"updatedAt":1479138570824}%
-```
+### Get People SWAPI
 
-### Delete a Todo
+Para obtener datos de personas de la API SWAPI.
+Tipo: GET
 
-```bash
-# Replace the <id> part with a real id from your todos table
-curl -X DELETE https://XXXXXXX.execute-api.us-east-1.amazonaws.com/dev/todos/<id>
-```
+https://bn71qzqogk.execute-api.us-east-1.amazonaws.com/dev/swapi/people
 
-No output
 
-## Scaling
+### Get Planets SWAPI
 
-### AWS Lambda
+Para obtener datos de planetas de la API SWAPI.
+Tipo: GET
 
-By default, AWS Lambda limits the total concurrent executions across all functions within a given region to 100. The default limit is a safety limit that protects you from costs due to potential runaway or recursive functions during initial development and testing. To increase this limit above the default, follow the steps in [To request a limit increase for concurrent executions](http://docs.aws.amazon.com/lambda/latest/dg/concurrent-executions.html#increase-concurrent-executions-limit).
+https://bn71qzqogk.execute-api.us-east-1.amazonaws.com/dev/swapi/planets
 
-### DynamoDB
 
-When you create a table, you specify how much provisioned throughput capacity you want to reserve for reads and writes. DynamoDB will reserve the necessary resources to meet your throughput needs while ensuring consistent, low-latency performance. You can change the provisioned throughput and increasing or decreasing capacity as needed.
 
-This is can be done via settings in the `serverless.yml`.
-
-```yaml
-  ProvisionedThroughput:
-    ReadCapacityUnits: 1
-    WriteCapacityUnits: 1
-```
-
-In case you expect a lot of traffic fluctuation we recommend to checkout this guide on how to auto scale DynamoDB [https://aws.amazon.com/blogs/aws/auto-scale-dynamodb-with-dynamic-dynamodb/](https://aws.amazon.com/blogs/aws/auto-scale-dynamodb-with-dynamic-dynamodb/)

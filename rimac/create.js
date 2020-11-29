@@ -1,29 +1,29 @@
+//==============================
+//Crear una Poliza en DynamoDb
+//==============================
+
 'use strict';
 
-//const { "v4": uuidv4 } = require('uuid'); //const uuid = require('uuid');
-//const { v4: uuid } = require('uuid');
 
-const AWS = require('aws-sdk'); // eslint-disable-line import/no-extraneous-dependencies
+
+const AWS = require('aws-sdk'); // obtener acceso a AWS SDK
 
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
 module.exports.create = (event, context, callback) => {
     const timestamp = new Date().getTime();
-    console.log('MIRA AQUI' + event.headers);
-    console.log('Function name: ', context.awsRequestId);
-    const contextid = context.awsRequestId;
-    //console.log('CONTEXT ' + AWS.context.awsRequestId);
-    //const data = JSON.parse(event);
+
+
+    const contextid = context.awsRequestId; // obtener un requestId
+
     const data = event;
-    console.error('MIRA AQUI 1.5' + data);
-    console.error('MIRA AQUI 2' + event);
+
     if (typeof data.poliza !== 'string') {
-        console.error('Validation Failed');
-        console.error('MIRA AQUI 3' + event);
+
         callback(null, {
             statusCode: 400,
             headers: { 'Content-Type': 'text/plain' },
-            body: 'Couldn\'t create the todo item 1.',
+            body: 'No se pudo crear el item, revisar el request.',
         });
         return;
     }
@@ -43,15 +43,15 @@ module.exports.create = (event, context, callback) => {
         },
     };
 
-    // write the rimac to the database
+    // escribir en la base de datos dynamoDB
     dynamoDb.put(params, (error) => {
-        // handle potential errors
+        // manejar potenciales errores
         if (error) {
             console.error(error);
             callback(null, {
                 statusCode: error.statusCode || 501,
                 headers: { 'Content-Type': 'text/plain' },
-                body: 'Couldn\'t create the rimac item 5.',
+                body: 'No se pudo crear el item, revisar errores con la base de datos',
             });
             return;
         }

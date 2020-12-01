@@ -8,6 +8,25 @@ provider:
   stage: dev
   environment:
     DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
+    Contar: '"contar":'
+    Siguiente: '"siguiente":'
+    Anterior: '"anterior":'
+    Resultados: '"resultados":'
+    Nombre: '"nombre":'
+    Altura: '"altura":'
+    Masa: '"masa":'
+    Color_Pelo: '"color_pelo":'
+    Color_Piel: '"color_piel":'
+    Color_Ojos: '"color_ojos":'
+    Genero: '"genero":'
+    Ano_Nacimiento: '"ano_nacimiento":'
+    Mundo_Natal: '"mundo_natal":'
+    Peliculas: '"peliculas":'
+    Especies: '"especies":'
+    Vehiculos: '"vehiculos":'
+    Naves_Estelares: '"naves_estelares":'
+    Creado: '"creado":'
+    Editado: '"editado":'
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -44,7 +63,7 @@ functions:
           path: swapi/people/
           method: get
           cors: true
-
+  
   listplanets:
     handler: swapi/planets/listplanets.get
     events:
